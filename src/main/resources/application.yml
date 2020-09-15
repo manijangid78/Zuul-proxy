@@ -1,0 +1,28 @@
+spring:
+  application:
+    name: zuul-service
+
+server:
+  port: 8000
+
+eureka:
+  client:
+    registerWithEureka: true
+    fetchRegistry: true
+    serviceUrl:
+      defaultZone: http://localhost:8070/eureka/
+
+zuul:
+  host:
+    connect-timeout-millis: 300000
+    socket-timoeut-millis: 300000
+  ignoredServices: '*'
+  routes:
+    database-service:
+      path: /data/**
+      serviceId: database-service
+      stripPrefix: true
+    login-service:
+      path: /**
+      serviceId: login-service
+      stripPrefix: true
